@@ -1,0 +1,52 @@
+<div class="sidebar-container" appClickOutside (appClickOutside)="doNothing()" [class.open]="sidebarOpen" [class.closed]="!sidebarOpen" (mouseenter)="onMouseEnterSideBar()" (mouseleave)="onMouseLeaveSideBar()" [class.is-closed]="!sidebarOpen">
+        <li (click)="changePage('firstPage')" [class.selected]="selectedPage=='firstPage'">
+            <button mat-icon-button [disableRipple]="true">
+                <mat-icon>lightbulb</mat-icon>
+                <div class="open-close-transition" [class.open]="sidebarOpen" [class.closed]="!sidebarOpen">
+                    Notes
+                </div>
+            </button>
+        </li>
+        <!-- <li>
+            <button mat-icon-button>
+                <mat-icon>notifications</mat-icon>
+            </button>
+            Reminders
+        </li> -->
+
+
+        <!-- set labels -->
+        <li *ngFor="let label of labelsArray" (click)="changePage(label.id.toString())" [class.selected]="selectedPage==label.id.toString()">
+            <button class="no-hover" mat-icon-button [disableRipple]="true">
+                <mat-icon>label_outline</mat-icon>
+                <div class="open-close-transition" [class.open]="sidebarOpen" [class.closed]="!sidebarOpen">
+                    {{label.name}}
+                </div>
+            </button>
+        </li>
+
+        <li (click)="openEditLabel()">
+            <button mat-icon-button [disableRipple]="true">
+                <mat-icon>mode_edit_outline</mat-icon>
+                <div class="open-close-transition" [class.open]="sidebarOpen" [class.closed]="!sidebarOpen">
+                    Edit Label
+                </div>
+            </button>
+        </li>
+        <li (click)="changePage('archive')" [class.selected]="selectedPage=='archive'">
+            <button mat-icon-button [disableRipple]="true">
+                <mat-icon>archive</mat-icon>
+                <div class="open-close-transition" [class.open]="sidebarOpen" [class.closed]="!sidebarOpen">
+                    Archive
+                </div>
+            </button>
+        </li>
+        <li (click)="changePage('trash')" [class.selected]="selectedPage=='trash'">
+            <button mat-icon-button [disableRipple]="true">
+                <mat-icon>delete</mat-icon>
+                <div class="open-close-transition" [class.open]="sidebarOpen" [class.closed]="!sidebarOpen">
+                    Trash
+                </div>
+            </button>
+        </li>
+    </div>

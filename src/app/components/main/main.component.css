@@ -1,0 +1,50 @@
+.notes-display {
+    padding: auto 350px;
+    column-width: 250px;
+    column-count: auto;
+    column-gap: 16px;
+    max-width: 100%;
+    margin: 0 ;
+    /* border: 2px solid red; */
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.separation-gap {
+    margin-top: 60px;
+}
+  
+.notes-display div {
+    width: min-content;
+    /* border: 2px solid black; */
+}
+.note-card {
+    width: 100%;
+    display: inline-block;
+    margin-bottom: 16px;
+  }
+
+/* .note-card {
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    padding: 12px;
+    box-sizing: border-box;
+    word-wrap: break-word;
+
+    flex: 1 1 auto;
+    width: auto;
+    max-width: 250px;
+} */
+
+
+.main-container {
+    /* border: 2px solid blue; */
+    /* padding: auto; */
+    /* margin: auto; */
+    padding: 100px;
+    padding-top: 0;
+}

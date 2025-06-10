@@ -1,0 +1,65 @@
+mat-toolbar.toolbar {
+    /* position: fixed;
+    top: 0;
+    left: 0;
+    right: 0; */
+    height: 64px;
+    /* background-color: #fff; */
+    display: flex;
+    /* z-index: 1000; */
+    /* justify-content: space-between; */
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.title {
+    /* margin: auto auto auto 30px; */
+    margin-left: 30px;
+    margin-right: 0;
+    flex-shrink: 0;
+}
+
+.layout-body {
+    display: flex;
+    margin-top: 64px; /* same as toolbar height */
+}
+
+.search-box{
+    display: flex;
+    margin-left: 30px;
+    width: 100%;
+}
+
+.search-input {
+    outline: none;
+    border: none;
+    height: 40px;
+    font-size: larger;
+    background-color: inherit;
+    color: inherit;
+    width: 100%;
+    padding-top: 12px;
+}
+
+.close {
+    margin: auto 0 auto 30px;
+}
+
+.option-buttons {
+    margin-left: auto;
+    margin-right: 30px;
+    flex-shrink: 0;
+}
+
+.option-buttons button {
+    margin-left: 30px;
+}
+
+.refresh-icon {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.refresh-icon.visible {
+    opacity: 1;
+}

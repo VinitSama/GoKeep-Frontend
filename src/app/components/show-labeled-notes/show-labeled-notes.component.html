@@ -1,0 +1,27 @@
+<div>
+    <!-- <app-add-note></app-add-note> -->
+    <div class="container" *ngIf="pinnedNotes.length > 0">
+        <h4>PINNED</h4>
+        <div class="notes-display">
+            <div *ngFor="let note of pinnedNotes">
+                <app-note-display (makeCopyEmitter)="makeCopy(note.noteId, $event)" (deleteForeverEmitter)="deleteForever($event)" (toggleEmitter)="toggleSetting($event, note.noteId)" *ngIf="!note.isTrashed" [labelsArray]="labelArray" [note]="note" [showLabel]="false" [searchTerm]="searchTerm"></app-note-display>
+            </div>
+        </div>
+    </div>
+    <div class="container" *ngIf="archivedNotes.length > 0">
+        <h4 [class.separation-gap]="pinnedNotes.length>0">ARCHIVED</h4>
+        <div class="notes-display">
+            <div *ngFor="let note of archivedNotes">
+                <app-note-display (makeCopyEmitter)="makeCopy(note.noteId, $event)" (deleteForeverEmitter)="deleteForever($event)" (toggleEmitter)="toggleSetting($event, note.noteId)" *ngIf="!note.isTrashed" [labelsArray]="labelArray" [note]="note" [showLabel]="false" [searchTerm]="searchTerm"></app-note-display>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <h4 [class.separation-gap]="(pinnedNotes.length>0 || archivedNotes.length>0) && notes.length > 0" *ngIf="(pinnedNotes.length > 0 || archivedNotes.length > 0) && notes.length > 0">OTHER</h4>
+        <div class="notes-display">
+            <div *ngFor="let note of notes">
+                <app-note-display (makeCopyEmitter)="makeCopy(note.noteId, $event)" (deleteForeverEmitter)="deleteForever($event)" (toggleEmitter)="toggleSetting($event, note.noteId)" *ngIf="!note.isTrashed && !note.isArchived && !note.isPinned" [labelsArray]="labelArray" [note]="note" [showLabel]="false" [searchTerm]="searchTerm"></app-note-display>
+            </div>
+        </div>
+    </div>
+</div>

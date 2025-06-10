@@ -1,0 +1,50 @@
+.edit-label-container {
+    font-weight: 300;
+}
+.new-label {
+    display: flex;
+    margin-left:  20px;
+}
+
+.old-labels {
+    display: flex;
+    margin-left: 20px;
+}
+
+.label-name {
+    margin-top: 14px;
+    width: 100%;
+    cursor: text;
+}
+
+.right-end {
+    margin-right: 10px;
+    margin-left: auto;
+}
+
+.done {
+    font-size: large;
+    text-align: right;
+    margin-right: 10px;
+}
+.done div {
+    padding: 10px;
+    width: min-content;
+    justify-self: right;
+    cursor: pointer;
+    margin-left: auto;
+}
+
+.edit-label-title{
+    margin: 15px 10px;
+    font-size: large;
+    font-weight: 500;
+}
+
+button {
+    height: 30px;
+}
+
+.icon {
+    font-size: 20px;
+}

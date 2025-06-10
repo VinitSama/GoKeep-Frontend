@@ -1,0 +1,37 @@
+<form [formGroup]="signupForm" (ngSubmit)="onSignup()">
+    <div class="signup-container">
+        <!-- <div class="logo">
+            <img src="../../../assets/Group 65.png" alt="">
+        </div> -->
+        <div class="heading">
+            Sign Up
+        </div>
+        <div class="signup-form">
+            First Name
+            <input type="text" formControlName="firstName">
+            <div *ngIf="firstName?.invalid && firstName?.touched" class="red-font present">
+                First Name Cannot be Empty
+            </div>
+            Last Name
+            <input type="text" formControlName="lastName">
+            Email
+            <input type="text" formControlName="email">
+            <div *ngIf="email?.invalid && email?.touched" class="red-font present">
+                Invalid Email
+            </div>
+            Password
+            <input type="text" formControlName="password">
+            <div *ngIf="password?.invalid && password?.touched" class="red-font present">
+                Password Cannot be Empty
+            </div>
+        </div>
+        <div class="other-option">
+            <div routerLink="../login">
+                Log In
+            </div>
+        </div>
+        <button class="submit-btn" type="submit">
+            Sign Up
+        </button>
+    </div>
+</form>

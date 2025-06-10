@@ -1,0 +1,41 @@
+<div class="main-container" *ngIf="firstPage">
+    <app-add-note *ngIf="firstPage" (newNoteEmitter)="addNewNote($event)"></app-add-note>
+    <div class="container" *ngIf="pinnedNotes.length > 0">
+        <h4>PINNED</h4>
+        <div class="notes-display">
+            <div *ngFor="let note of pinnedNotes">
+                <app-note-display (makeCopyEmitter)="makeCopy(note.noteId, $event)" (deleteForeverEmitter)="deleteForever(note.noteId)" (toggleEmitter)="toggleSetting($event, note.noteId)" class="note-card" *ngIf="!note.isTrashed && note.isActive" [note]="note" [showLabel]="true" [searchTerm]="searchTerm" [labelsArray]="labelArray"></app-note-display>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <h4 *ngIf="pinnedNotes.length > 0" class="separation-gap">OTHERS</h4>
+        <div class="notes-display">
+            <div *ngFor="let note of notes">
+                <app-note-display (makeCopyEmitter)="makeCopy(note.noteId, $event)" (deleteForeverEmitter)="deleteForever(note.noteId)" (toggleEmitter)="toggleSetting($event, note.noteId)" class="note-card" *ngIf="!note.isTrashed && note.isActive && !note.isPinned && !note.isArchived" [note]="note" [showLabel]="true" [searchTerm]="searchTerm" [labelsArray]="labelArray"></app-note-display>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="main-container" *ngIf="archivePage">
+    <!-- <app-add-note></app-add-note> -->
+    <div class="notes-display">
+        <div *ngFor="let note of archivedNotes">
+            <app-note-display (makeCopyEmitter)="makeCopy(note.noteId, $event)" (deleteForeverEmitter)="deleteForever(note.noteId)" (toggleEmitter)="toggleSetting($event, note.noteId)" class="note-card" *ngIf="!note.isTrashed && note.isActive && note.isArchived" [note]="note" [showLabel]="true" [searchTerm]="searchTerm" [labelsArray]="labelArray"></app-note-display>
+        </div>
+    </div>
+</div>
+
+<div class="main-container" *ngIf="trashPage">
+    <!-- <app-add-note></app-add-note> -->
+    <div class="notes-display">
+        <div *ngFor="let note of trashedNotes">
+            <app-note-display (makeCopyEmitter)="makeCopy(note.noteId, $event)" (deleteForeverEmitter)="deleteForever(note.noteId)" (toggleEmitter)="toggleSetting($event, note.noteId)" *ngIf="note.isActive" class="note-card" [note]="note" [showLabel]="true" [searchTerm]="searchTerm" [labelsArray]="labelArray"></app-note-display>
+        </div>
+    </div>
+</div>
+
+<div class="main-container" *ngIf="labelPage">
+    <app-show-labeled-notes (makeCopyEmitter)="makeCopy($event.oldId, $event.newId)" (deleteForeverEmitter)="deleteForever($event)" (toggleEmitter)="toggleSetting($event.option, $event.noteId)" class="note-card" [labelArray]="labelArray" [labelId]="selectedLabel" [allNotes]="notesCopy" [searchTerm]="searchTerm"></app-show-labeled-notes>
+</div>

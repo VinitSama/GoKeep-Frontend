@@ -1,0 +1,110 @@
+.note-container {
+    border: 1px solid transparent;
+    border-color: #eecd15;
+    border-radius: 15px;
+    /* margin: 0 30px 30px 0; */
+    padding-left: 15px;
+    width: 250px;
+    font-size: medium;
+    -webkit-box-shadow: 0px 0px 14px 1px #eecd15; 
+    box-shadow: 0px 0px 14px 1px #eecd15;
+}
+
+.trashed{
+    border-color: #ee4015;
+    -webkit-box-shadow: 0px 0px 14px 1px #ee4015; 
+    box-shadow: 0px 0px 14px 1px #ee4015;
+}
+
+.pinned{
+    border-color: #15ee9b;
+    -webkit-box-shadow: 0px 0px 14px 1px #15ee9b; 
+    box-shadow: 0px 0px 14px 1px #15ee9b;
+}
+
+.archived{
+    border-color: #ee159b;
+    -webkit-box-shadow: 0px 0px 14px 1px #ee159b; 
+    box-shadow: 0px 0px 14px 1px #ee159b;
+}
+
+mark {
+    background-color: yellow;
+    font-weight: bold;
+}
+
+.note-title-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+.options {
+    display: flex;
+    justify-content: space-between;
+}
+
+.note-content , .note-title {
+    text-wrap: pretty;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+}
+
+.note-title {
+    padding-top: 10px;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    font-weight: 500;
+}
+
+.note-content{
+    font-weight: 300;
+    -webkit-line-clamp: 14;
+    line-clamp: 14;
+    padding-right: 15px;
+}
+
+.menu-item {
+    cursor: pointer;
+    margin: 4px;
+    padding: 0 2px;
+}
+
+.labels-display-container {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 5px 5px 0 0;
+    width: 100%;
+}
+
+.labels-display-container div {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.add-label-input {
+    outline: none;
+    border: none;
+    color: inherit;
+    background-color: inherit;
+    padding-left: 5px;
+    padding-top: 5px;
+}
+
+.create-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.label-display {
+    display: flex;
+    width: min-content;
+    margin-right: 10px;
+    background-color: #adadad;
+    border-radius: 20px;
+    padding: 4px 6px;
+}

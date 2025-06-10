@@ -1,0 +1,41 @@
+<div class="add-note-container">
+    <form [formGroup]="updateNote">
+        <div class="input-area">
+            <div class="title-input">
+                <input type="text" formControlName="title" placeholder="Title" />
+                <button mat-icon-button type="button" (click)="toggleOption('togglePin')">
+                    <mat-icon [color]="pinned ? 'primary' : undefined">push_pin</mat-icon>
+                </button>
+            </div>
+            <div class="content-input">
+                <textarea matInput cdkTextareaAutosize [cdkAutosizeMinRows]="3" [cdkAutosizeMaxRows]="999" type="text" formControlName="content" placeholder="Take a note..." ></textarea>
+            </div>
+        </div>
+        <div class="options" *ngIf="!note.isTrashed">
+            <button mat-icon-button type="button" (click)="addArchive()" >
+                <mat-icon [color]="archived ? 'primary' : undefined" >archive</mat-icon>
+            </button>
+            <div style="display: flex;">
+                <button mat-icon-button [matMenuTriggerFor]="moreOption">
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+                <div (click)="onClose()" style="padding-top: 15px; cursor: pointer; margin-left: 20px;">Close</div>
+            </div>
+        </div>
+        <div class="delete-options" *ngIf="note.isTrashed">
+            <button mat-icon-button (click)="deleteForever()">
+                <mat-icon>delete_forever</mat-icon>
+            </button>
+            <button mat-icon-button (click)="toggleOption('toggleTrash')">
+                <mat-icon>restore_from_trash</mat-icon>
+            </button>
+        </div>
+    </form>
+</div>
+
+<mat-menu #moreOption = "matMenu">
+    <li *ngIf="!note.isTrashed" (click)="toggleOption('toggleTrash')">Delete</li>
+    <li *ngIf="note.isTrashed" (click)="toggleOption('toggleTrash')">Restore</li>
+    <li>Add label</li>
+    <li (click)="makeCopy()">Make a copy</li>
+</mat-menu>

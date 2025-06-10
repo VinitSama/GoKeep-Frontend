@@ -1,0 +1,43 @@
+.title-input {
+    display: flex;
+}
+
+input::placeholder, textarea::placeholder {
+    opacity: 1;
+    color: #333;
+    font-weight: 500;
+    font-size: large;
+}
+
+.add-note-container {
+    overflow: hidden;
+}
+
+input, textarea {
+    width: 100%;
+    border: none;
+    padding-left: 15px;
+    font-size: large;
+    color: #a1a1a1;
+    font-weight: 500;
+    outline: none;
+    background-color: inherit;
+    resize: none;
+}
+
+.options{
+    display: flex;
+    padding-top: 10px;
+    justify-content: space-between;
+    margin: 0 40px 0 20px;
+}
+
+.options button{
+    cursor: pointer;
+}
+
+li {
+    cursor: pointer;
+    margin: 4px;
+    padding: 0 2px;
+}

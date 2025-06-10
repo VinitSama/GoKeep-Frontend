@@ -1,0 +1,27 @@
+<div appClickOutside (appClickOutside)="closeCard()" class="add-note-container" *ngIf="openedCard">
+    <form [formGroup]="newNote">
+        <div class="input-area">
+            <div class="title-input">
+                <input type="text" formControlName="title" placeholder="Title" />
+                <button mat-icon-button type="button" (click)="toggle('isPinned')">
+                    <mat-icon [color]="newNote.get('isPinned')?.value ? 'primary' : undefined">push_pin</mat-icon>
+                </button>
+            </div>
+            <div class="content-input">
+                <textarea matInput cdkTextareaAutosize [cdkAutosizeMinRows]="3" [cdkAutosizeMaxRows]="999" type="text" formControlName="content" placeholder="Take a note..." ></textarea>
+            </div>
+        </div>
+        <div class="options">
+            <button mat-icon-button type="button" (click)="addArchive()" >
+                <mat-icon >archive</mat-icon>
+            </button>
+            <!-- <button mat-icon-button type="button" (click)="toggle('isTrashed')">
+                <mat-icon [color]="newNote.get('isTrashed')?.value ? 'primary' : undefined">delete</mat-icon>
+            </button> -->
+            <div (click)="onClose()" style="padding-top: 15px;">Close</div>
+        </div>
+    </form>
+</div>
+<div class="add-note-container closed-card" appClickOutside (appClickOutside)="dummy()" *ngIf="!openedCard" (click)="openCard()">
+    Take a note...
+</div>

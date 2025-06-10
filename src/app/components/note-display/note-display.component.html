@@ -1,0 +1,53 @@
+<div class="note-container" [class.trashed]="note.isTrashed" [class.pinned]="note.isPinned && !note.isTrashed" [class.archived]="note.isArchived && !note.isTrashed && !note.isPinned" (click)="openUpdateComponent()">
+    <div class="note-title-container">
+        <div class="note-title" [innerHTML]="highlightText(title)"></div>
+        <button *ngIf="!note.isTrashed" mat-icon-button (click)="toggleOption('togglePin', $event)">
+            <mat-icon [color]="pinned ? 'primary' : undefined">push_pin</mat-icon>
+        </button>
+    </div>
+    <div class="note-content" [innerHTML]="highlightText(content)"></div>
+    <div class="labels-display-container" *ngIf="showLabel" (click)="stopPropagationOverload($event)">
+        <div>
+            <div class="label-display" *ngFor="let label of labels" [innerHTML]="highlightText(label.name)"></div>
+        </div>
+    </div>
+    <div class="options" *ngIf="!note.isTrashed">
+        <button mat-icon-button (click)="toggleOption('toggleArchive', $event)">
+            <mat-icon *ngIf="!note.isArchived">archive</mat-icon>
+            <mat-icon *ngIf="note.isArchived">unarchive</mat-icon>
+        </button>
+        <button mat-icon-button [matMenuTriggerFor]="moreOption" (click)="stopPropagationOverload($event)">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+    </div>
+    <div class="delete-options" *ngIf="note.isTrashed">
+        <button mat-icon-button (click)="deleteForever($event)">
+            <mat-icon>delete_forever</mat-icon>
+        </button>
+        <button mat-icon-button (click)="toggleOption('toggleTrash', $event)">
+            <mat-icon>restore_from_trash</mat-icon>
+        </button>
+    </div>
+</div>
+
+<mat-menu #moreOption = "matMenu">
+    <li class="menu-item" *ngIf="!note.isTrashed" (click)="toggleOption('toggleTrash', $event)">Delete</li>
+    <li class="menu-item" *ngIf="note.isTrashed" (click)="toggleOption('toggleTrash', $event)">Restore</li>
+    <li class="menu-item" (click)="stopPropagationOverload($event)" [matMenuTriggerFor]="labelOption">Add label</li>
+    <li class="menu-item" (click)="makeCopy()">Make a copy</li>
+</mat-menu>
+
+<mat-menu #labelOption = "matMenu">
+    <div class="find-label" (click)="stopPropagationOverload($event)">
+        <input class="add-label-input" type="text" [formControl]="labelControl" matInput placeholder="Enter label name" >
+        <div *ngFor="let checkLabel of filteredOptions | async; trackBy: trackCheckLabel " (click)="stopPropagationOverload($event)">
+            <mat-checkbox [checked]="checkLabel.isChecked" (change)="updateNoteLabel($event.checked, checkLabel.id)">{{checkLabel.name}}</mat-checkbox>
+        </div>
+        <div class="create-label" *ngIf="showCreateLabel" (click)="createLabel(labelControl.value)">
+            <button mat-icon-button>
+                <mat-icon>add</mat-icon>
+            </button>
+            Create "{{labelControl.value}}"
+        </div>
+    </div>
+</mat-menu>

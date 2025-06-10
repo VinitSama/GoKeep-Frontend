@@ -1,0 +1,36 @@
+<form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+    <div class="login-container">
+        <!-- <div class="logo">
+            <img src="../../../assets/Group 65.png" alt="">
+        </div> -->
+        <div class="heading">
+            Sign In
+        </div>
+        <div class="sub-heading">
+            Login to Continue
+        </div>
+        <div class="login-form">
+            Email
+            <input type="text" formControlName="email" placeholder="Email">
+            <div *ngIf="email?.touched && email?.invalid" class="red-font present">
+                Invalid Email
+            </div>
+            Password
+            <input type="text" formControlName="password" placeholder="Password">
+            <div *ngIf="password?.touched && password?.invalid" class="red-font present">
+                Password Cannot be Empty
+            </div>
+        </div>
+        <div class="other-option">
+            <a routerLink="/signup" class="cursor-point">
+                Sign Up
+            </a>
+            <div class="cursor-point">
+                Forgot Password?
+            </div>
+        </div>
+        <button class="submit-btn" type="submit">
+            Login
+        </button>
+    </div>
+</form>

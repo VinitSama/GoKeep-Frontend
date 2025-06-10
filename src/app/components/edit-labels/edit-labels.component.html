@@ -1,0 +1,48 @@
+<div class="edit-label-container" (click)="stopPropagation($event)">
+    <div class="edit-label-title">
+        Edit labels
+    </div>
+    <div class="new-label">
+        <button *ngIf="!notEditable(-1)" mat-icon-button (click)="cancel()">
+            <mat-icon class="icon" >close</mat-icon>
+        </button>
+        <button *ngIf="notEditable(-1)" mat-icon-button (click)="add()">
+            <mat-icon class="icon" >add</mat-icon>
+        </button>
+        <div *ngIf="notEditable(-1)" class="label-name" (click)="editLabel(-1)">
+            {{createLabel=='' ? 'Create new label': createLabel}}
+        </div>
+        <mat-form-field *ngIf="!notEditable(-1)">
+            <input matInput placeholder="Create new label" [(ngModel)]="createLabel">
+        </mat-form-field>
+        <button mat-icon-button class="right-end" (click)="addNewLabel()">
+            <mat-icon class="icon" >check</mat-icon>
+        </button>
+    </div>
+    <div *ngFor="let labelItem of labels; index as i;" class="old-labels" (mouseover)="mouseOver(i)" (mouseout)="mouseOut()">
+        <button mat-icon-button *ngIf="notEditable(i) && !canShow(i)" >
+            <mat-icon class="icon" >label</mat-icon>
+        </button>
+        <button mat-icon-button *ngIf="!notEditable(i) || canShow(i)" (click)="deleteLabel(i)">
+            <mat-icon class="icon" >delete</mat-icon>
+        </button>
+        <div *ngIf="notEditable(i)" class="label-name" (click)="editLabel(i)">
+            {{labelItem.name}}
+        </div>
+        <mat-form-field *ngIf="!notEditable(i)">
+            <input matInput [(ngModel)]="currentEditLabelName">
+        </mat-form-field>
+        <button mat-icon-button *ngIf="notEditable(i)" (click)="editLabel(i)" class="right-end">
+            <mat-icon class="icon" >mode_edit_outline</mat-icon>
+        </button>
+        <button mat-icon-button *ngIf="!notEditable(i)" (click)="updateEdit()" class="right-end">
+            <mat-icon class="icon" >check</mat-icon>
+        </button>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="done">
+        <div (click)="closeComponent()">
+            Done
+        </div>
+    </div>
+</div>

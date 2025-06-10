@@ -1,0 +1,19 @@
+.notes-display {
+    display: block;
+    column-width: 250px;
+    column-gap: 16px;
+}
+
+.notes-display > div {
+    break-inside: avoid;
+    margin-bottom: 16px;
+}
+
+.separation-gap {
+    margin-top: 60px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+}

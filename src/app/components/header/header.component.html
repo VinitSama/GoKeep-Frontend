@@ -1,0 +1,30 @@
+<!-- header.component.html -->
+<mat-toolbar class="toolbar" appClickOutside (appClickOutside)="doNothing()">
+    <button mat-icon-button (click)="toggleSidebar()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  
+    <span class="title">GoKeep</span>
+  
+    <div class="search-box">
+      <button disabled mat-icon-button>
+        <mat-icon>search</mat-icon>
+      </button>
+      <input type="text" placeholder="Search" class="search-input" [(ngModel)]="searchTerm" (input)="updateSearchTerm()" (focus)="onFocus()" (blur)="outFocus()">
+      <button class="close" mat-icon-button *ngIf="isSearchFocus" (click)="onClose()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  
+    <span class="option-buttons">
+      <button mat-icon-button (click)="refreshPage()">
+        <mat-icon class="refresh-icon" [class.visible]="!cloudIcon">refresh</mat-icon>
+        <mat-icon class="refresh-icon" [class.visible]="cloudIcon">cloud_done</mat-icon>
+      </button>
+  
+      <button mat-icon-button (click)="logout()">
+        <mat-icon>logout</mat-icon>
+      </button>
+    </span>
+  </mat-toolbar>
+  
