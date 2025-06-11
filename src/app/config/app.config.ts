@@ -6,7 +6,7 @@ import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/
 import { authInterceptor } from '../interceptors/auth.interceptor';
 
 // const baseUrl = 'https://localhost:5117/';
-const baseUrl = 'https://13.228.225.19:8080/';
+const baseUrl = 'https://13.228.225.19/';
 
 export const appConfig: ApplicationConfig = {
   providers: [provideRouter(routes), provideAnimationsAsync(), provideHttpClient(withFetch(), withInterceptors([authInterceptor])), provideAnimationsAsync()]
