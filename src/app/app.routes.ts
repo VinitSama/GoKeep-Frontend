@@ -7,7 +7,6 @@ export const routes: Routes = [
         path: '',
         pathMatch: "full",
         redirectTo: 'home',
-        // canActivate: [AuthGaurdService]
     },
     {
         path: 'login',
@@ -20,12 +19,8 @@ export const routes: Routes = [
     {
         path: 'home',
         loadComponent: () => import("./components/home/home.component").then(m => m.HomeComponent),
-        canActivate: [AuthGaurdService]
+        // canActivate: [AuthGaurdService]
     },
-    // {
-    //     path: 'dummy',
-    //     loadComponent: () => import("./dummy/dummy.component").then(m=>m.DummyComponent),
-    // },
     {
         path:'**',
         redirectTo: 'home'
