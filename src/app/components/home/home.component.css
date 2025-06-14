@@ -22,8 +22,15 @@ app-sidebar {
     position: relative;
     margin-top: 64px;
     height: calc(100% - 64px);
-    overflow: hidden;
+    overflow: auto;
 }
+
+/* .sidebar {
+    position: fixed;
+    top: 70px;
+    left: 0;
+} */
+
 
 app-sidebar{
     flex: 0 0 250px;

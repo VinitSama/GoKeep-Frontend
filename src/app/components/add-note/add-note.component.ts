@@ -74,12 +74,14 @@ export class AddNoteComponent {
       console.log("note create unsuccessful");
       return ;
     }
-    let newRequest: NoteLabelRequestModel = {
-      labelId: this.labelPageId,
-      noteId: response.data
-    };
-    const response2 = await this.noteLabelService.addNoteLabel(newRequest);
-    this.openedCard = false;
+    if (this.isLabelPage){
+      let newRequest: NoteLabelRequestModel = {
+        labelId: this.labelPageId,
+        noteId: response.data
+      };
+      const response2 = await this.noteLabelService.addNoteLabel(newRequest);
+      this.openedCard = false;
+    }
   }
 
 
