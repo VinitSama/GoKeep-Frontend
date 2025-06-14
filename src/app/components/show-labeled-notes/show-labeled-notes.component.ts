@@ -9,6 +9,7 @@ import { NoteService } from '../../services/note.service';
 import { Subscription } from 'rxjs';
 import { PageChangeService } from '../../services/page-change.service';
 import { RefreshService } from '../../services/refresh.service';
+import { NoteCreateRequestModel } from '../../models/note-create-request-model';
 
 @Component({
   selector: 'app-show-labeled-notes',
@@ -31,6 +32,7 @@ export class ShowLabeledNotesComponent implements OnInit {
   @Output() toggleEmitter = new EventEmitter<{option:'togglePin' | 'toggleArchive' | 'toggleTrash', noteId: number}>();
   @Output() deleteForeverEmitter = new EventEmitter<number>();
   @Output() makeCopyEmitter = new EventEmitter<{oldId:number, newId:number}>();
+  @Output() newNoteEmitter = new EventEmitter<{note: [NoteCreateRequestModel,number],label: number }>();
   
   notes: Array<Note> = [];
   pinnedNotes: Array<Note> = [];
@@ -42,16 +44,18 @@ export class ShowLabeledNotesComponent implements OnInit {
 
   constructor(private noteLabelService: NoteLabelService, private pageChangeService: PageChangeService, private refreshService: RefreshService) {}
 
+  addNewNote(note:[NoteCreateRequestModel,number]){
+    this.newNoteEmitter.emit({note: note, label: this.labelId});
+  }
+
   async ngOnInit() {
-    await this.getNoteLabels()
-    await this.noteSeggregation()
+    await this.refreshLabelPage();
     this.pageChangeSubscription = this.pageChangeService.getPage().subscribe(async (pageName) => {
       if (pageName != 'firstPage' && pageName != 'archive' && pageName != 'trash') {
         if (pageName != this.labelId.toString()) {
           try{
             this.labelId = parseInt(pageName);
-            await this.getNoteLabels();
-            await this.noteSeggregation()
+            await this.refreshLabelPage()
           } catch {
             console.error("invalid page name");
           }
@@ -60,14 +64,19 @@ export class ShowLabeledNotesComponent implements OnInit {
     });
 
     this.refreshSubscription = this.refreshService.getRefreshTrigger().subscribe( async () => {
-      await this.getNoteLabels();
-      await this.noteSeggregation();
+      await this.refreshLabelPage();
     })
     
   }
 
+  private async refreshLabelPage() {
+    await this.getNoteLabels();
+    await this.noteSeggregation();
+  }
+
   private async getNoteLabels() {
     const response = await this.noteLabelService.getNoteIdByLabelId(this.labelId);
+    this.noteLabels = [];
     if (response?.responseCode == 200 && response?.data != undefined) {
       this.noteLabels = response.data;
     }else {

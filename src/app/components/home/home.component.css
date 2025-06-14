@@ -22,7 +22,7 @@ app-sidebar {
     position: relative;
     margin-top: 64px;
     height: calc(100% - 64px);
-    overflow: auto;
+    overflow: hidden;
 }
 
 app-sidebar{

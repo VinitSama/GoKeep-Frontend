@@ -38,6 +38,7 @@ export class SidebarComponent implements OnInit {
   }
 
   changePage(pageName: 'firstPage' | 'archive' | 'trash' | string) {
+    this.pageChangeService.changePage('firstPage');
     this.pageChangeService.changePage(pageName);
   }
 
@@ -72,30 +73,22 @@ export class SidebarComponent implements OnInit {
     })
     const instance = dialogRef.componentInstance;
     instance.editDataSubject.subscribe((data: EditLabelDataTransferModel) => {
-      console.log(data);
       this.makeEditChanges(data);
     })
   }
 
   private makeEditChanges(data: EditLabelDataTransferModel) {
-    console.log(1,this.labelsArray)
     if (data.add && data.id && data.label) {
-      console.log(2)
       const newLabel: Label = {
         id: data.id,
         name: data.label,
         createdAt: new Date()
       }
       this.labelsArray.unshift(newLabel);
-      console.log(3)
     } else if (data.update && data.index && data.index>-1 && data.label && data.label != this.labelsArray[data.index]. name) {
-      console.log(4)
       this.labelsArray[data.index].name = data.label;
-      console.log(5)
     } else if (data.delete && data.index && data.index > -1) {
-      console.log(6)
       this.labelsArray.splice(data.index,1);
-      console.log(7)
     }
   }
 

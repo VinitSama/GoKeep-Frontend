@@ -60,6 +60,7 @@ export class NoteDisplayComponent implements OnInit {
   @Output() toggleEmitter = new EventEmitter<'togglePin' | 'toggleArchive' | 'toggleTrash'>();
   @Output() deleteForeverEmitter = new EventEmitter<number>();
   @Output() makeCopyEmitter = new EventEmitter<number>();
+  @Output() makeNewLabelEmitter = new EventEmitter<Label>();
   
   private refreshSubscription!: Subscription;
   private labelCheckList: Array<labelCheckBox> = [];
@@ -73,7 +74,10 @@ export class NoteDisplayComponent implements OnInit {
     this.labelControl.setValue(val);
   }
 
-  highlightText(text: string) {
+  highlightText(text: string, isLabel: boolean) {
+    if (isLabel){
+      text = "#"+text;
+    }
     if (!this.searchTerm) {
       return text;
     }
@@ -182,10 +186,17 @@ export class NoteDisplayComponent implements OnInit {
       label: labelName
     }
     const response = await this.labelService.addNewLabel(labelCreateModel);
-    if(!response || response.responseCode!=201) {
+    if(!response || response.responseCode!=201 || !response.data) {
       //snackbar
       return
     }
+    let newLabel: Label = {
+      id : response.data,
+      name : labelName,
+      createdAt : new Date()
+    };
+    this.makeNewLabelEmitter.emit(newLabel);
+    this.labelsArray.unshift(newLabel);
     this.refreshLabels();
     let labelId = this.labelsArray.filter(label => label.name == labelName)?.shift()?.id;
     if (labelId == undefined) {
@@ -196,6 +207,7 @@ export class NoteDisplayComponent implements OnInit {
       noteId: this.note.noteId,
       labelId: labelId
     }
+    this.note.labelIds.push(response.data);
     const response2 = await this.noteLabelService.addNoteLabel(noteLabelCreateModel);
     if (!response2 || response2.responseCode != 201) {
       //snackbar

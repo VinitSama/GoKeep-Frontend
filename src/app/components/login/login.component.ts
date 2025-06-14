@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { LoginRequestModel } from '../../models/login-request-model';
 import { AuthenticationService } from '../../services/authentication.service';
 import { SnackbarService } from '../../services/snackbar.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -12,6 +13,7 @@ import { SnackbarService } from '../../services/snackbar.service';
     ReactiveFormsModule,
     FormsModule,
     CommonModule,
+    RouterLink,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'

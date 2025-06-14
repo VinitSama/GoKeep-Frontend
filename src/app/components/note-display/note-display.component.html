@@ -1,14 +1,14 @@
 <div class="note-container" [class.trashed]="note.isTrashed" [class.pinned]="note.isPinned && !note.isTrashed" [class.archived]="note.isArchived && !note.isTrashed && !note.isPinned" (click)="openUpdateComponent()">
     <div class="note-title-container">
-        <div class="note-title" [innerHTML]="highlightText(title)"></div>
+        <div class="note-title" [innerHTML]="highlightText(title,false)"></div>
         <button *ngIf="!note.isTrashed" mat-icon-button (click)="toggleOption('togglePin', $event)">
             <mat-icon [color]="pinned ? 'primary' : undefined">push_pin</mat-icon>
         </button>
     </div>
-    <div class="note-content" [innerHTML]="highlightText(content)"></div>
+    <div class="note-content" [innerHTML]="highlightText(content, false)"></div>
     <div class="labels-display-container" *ngIf="showLabel" (click)="stopPropagationOverload($event)">
         <div>
-            <div class="label-display" *ngFor="let label of labels" [innerHTML]="highlightText(label.name)"></div>
+            <div class="label-display" *ngFor="let label of labels" [innerHTML]="highlightText(label.name, true)"></div>
         </div>
     </div>
     <div class="options" *ngIf="!note.isTrashed">
@@ -33,7 +33,7 @@
 <mat-menu #moreOption = "matMenu">
     <li class="menu-item" *ngIf="!note.isTrashed" (click)="toggleOption('toggleTrash', $event)">Delete</li>
     <li class="menu-item" *ngIf="note.isTrashed" (click)="toggleOption('toggleTrash', $event)">Restore</li>
-    <li class="menu-item" (click)="stopPropagationOverload($event)" [matMenuTriggerFor]="labelOption">Add label</li>
+    <li *ngIf="showLabel" class="menu-item" (click)="stopPropagationOverload($event)" [matMenuTriggerFor]="labelOption">Add label</li>
     <li class="menu-item" (click)="makeCopy()">Make a copy</li>
 </mat-menu>
 

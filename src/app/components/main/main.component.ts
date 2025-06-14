@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatExpansionModule} from '@angular/material/expansion'
 import { MatIconModule } from '@angular/material/icon';
@@ -49,6 +49,9 @@ export class MainComponent implements OnInit {
   labelPage: boolean = false;
   selectedLabel: number = -1;
   searchTerm: string = '';
+  labelPageName: string = '';
+
+  @Output() makeNewLabel = new EventEmitter<Label>();
   
   private pageChangeSubscription!: Subscription;
   private refreshSubscription!: Subscription;
@@ -126,6 +129,7 @@ export class MainComponent implements OnInit {
         if (label.id.toString() == pageName) {
           this.labelPage = true;
           this.selectedLabel = label.id;
+          this.labelPageName = label.name;
         };
       });
       if (!this.labelPage){
@@ -134,7 +138,11 @@ export class MainComponent implements OnInit {
     }
   }
 
-  addNewNote(data: [NoteCreateRequestModel, number]) {
+  addNewNoteWithLabel(data: {note:[NoteCreateRequestModel,number], label: number}){
+    this.addNewNote(data.note, data.label);
+  }
+
+  addNewNote(data: [NoteCreateRequestModel, number], labelid:number = -1) {
     const noteData = data[0];
     const note: Note = {
       noteId: data[1],
@@ -147,6 +155,9 @@ export class MainComponent implements OnInit {
       createdAt: new Date(),
       updatedAt: new Date(),
       labelIds: []
+    }
+    if (labelid>0){
+      note.labelIds.push(labelid);
     }
     this.notesCopy.unshift(note);
     this.notes = this.notesSegregation(this.notesCopy);
@@ -235,6 +246,10 @@ export class MainComponent implements OnInit {
       this.notesCopy.unshift(newNote);
       this.notes = this.notesSegregation(this.notesCopy);
     }
+  }
+
+  emitLabel(label:Label){
+    this.makeNewLabel.emit(label);
   }
 
 }

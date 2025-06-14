@@ -1,5 +1,5 @@
 <div>
-    <!-- <app-add-note></app-add-note> -->
+    <app-add-note (newNoteEmitter)="addNewNote($event)" [labelPageId]="labelId" [isLabelPage]="true"></app-add-note>
     <div class="container" *ngIf="pinnedNotes.length > 0">
         <h4>PINNED</h4>
         <div class="notes-display">
